@@ -1,2 +1,87 @@
+---@diagnostic disable: undefined-global
+-- TrackPos: simple movement tracking helper for CC:Tweaked turtles.
+-- Load with `os.loadAPI("/path/trackPos")` then call `trackPos.moveForward(3)` etc.
+
 local trackPos = {}
 
+trackPos.position = { x = 0, y = 0, z = 0, d = 0 } -- d: 0=+Z,1=+X,2=-Z,3=-X
+
+local function normalize(quantity)
+  quantity = tonumber(quantity) or 1
+  if quantity < 1 then
+    return 1
+  end
+  return math.floor(quantity)
+end
+
+function trackPos.turnRight(quantity)
+  quantity = normalize(quantity)
+  for _ = 1, quantity do
+    if turtle.turnRight() then
+      trackPos.position.d = (trackPos.position.d + 1) % 4
+    end
+  end
+end
+
+function trackPos.turnLeft(quantity)
+  quantity = normalize(quantity)
+  for _ = 1, quantity do
+    if turtle.turnLeft() then
+      trackPos.position.d = (trackPos.position.d - 1) % 4
+    end
+  end
+end
+
+function trackPos.moveForward(quantity)
+  quantity = normalize(quantity)
+  for _ = 1, quantity do
+    if turtle.forward() then
+      if trackPos.position.d == 0 then
+        trackPos.position.z = trackPos.position.z + 1
+      elseif trackPos.position.d == 1 then
+        trackPos.position.x = trackPos.position.x + 1
+      elseif trackPos.position.d == 2 then
+        trackPos.position.z = trackPos.position.z - 1
+      elseif trackPos.position.d == 3 then
+        trackPos.position.x = trackPos.position.x - 1
+      end
+    end
+  end
+end
+
+function trackPos.moveBackward(quantity)
+  quantity = normalize(quantity)
+  for _ = 1, quantity do
+    if turtle.back() then
+      if trackPos.position.d == 0 then
+        trackPos.position.z = trackPos.position.z - 1
+      elseif trackPos.position.d == 1 then
+        trackPos.position.x = trackPos.position.x - 1
+      elseif trackPos.position.d == 2 then
+        trackPos.position.z = trackPos.position.z + 1
+      elseif trackPos.position.d == 3 then
+        trackPos.position.x = trackPos.position.x + 1
+      end
+    end
+  end
+end
+
+function trackPos.moveUp(quantity)
+  quantity = normalize(quantity)
+  for _ = 1, quantity do
+    if turtle.up() then
+      trackPos.position.y = trackPos.position.y + 1
+    end
+  end
+end
+
+function trackPos.moveDown(quantity)
+  quantity = normalize(quantity)
+  for _ = 1, quantity do
+    if turtle.down() then
+      trackPos.position.y = trackPos.position.y - 1
+    end
+  end
+end
+
+return trackPos
