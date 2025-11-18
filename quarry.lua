@@ -1,3 +1,5 @@
+local trackPos = require("trackPos")
+
 --[[
 Quarry -diameter - depth -startingPosition
     diameter default = 5
@@ -17,5 +19,40 @@ Ask for confirmation
 Functions
     quarry
     digLevel - the pattern of going down a level
-    
+
 ]]
+
+local args = {...}
+
+for _, arg in ipairs(args) do
+    if arg == "-h" or arg == "--help" then
+        print("Usage: quarry [diameter] [depth] [startPos]")
+        print("  diameter  : width of the quarry (default 5)")
+        print("  depth     : layers to dig or -1 for bedrock (default -1)")
+        print("  startPos  : bottomLeft | bottomRight (default bottomLeft)")
+        return
+    end
+end
+
+local diameter = tonumber(args[1]) or 5
+local depth = tonumber(args[2]) or -1
+local startPos = args[3] or "bottomLeft"
+
+if diameter < 1 then
+    print("diameter must be at least 1")
+    return
+end
+
+if depth == 0 then
+    print("depth cannot be 0")
+    print("depth must be a positive number or -1 for bedrock")
+    return
+elseif depth < -1 then
+    print("depth must be a positive number or -1 for bedrock")
+    return
+end
+
+if startPos ~= "bottomLeft" and startPos ~= "bottomRight" then
+    print("startPos must be bottomLeft or bottomRight")
+    return
+end
