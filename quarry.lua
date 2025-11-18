@@ -1,5 +1,7 @@
-local trackPos = require("trackPos")
+-- This program is designed to run in CraftOS via the current release of CC: Tweaked
 
+local trackPos = require("trackPos")
+---@diagnostic disable: undefined-global
 --[[
 Quarry -diameter - depth -startingPosition
     diameter default = 5
@@ -55,4 +57,12 @@ end
 if startPos ~= "bottomLeft" and startPos ~= "bottomRight" then
     print("startPos must be bottomLeft or bottomRight")
     return
+end
+
+while turtle.getFuelLevel() < 500 do
+    print("Add fuel, then press Enter to continue (or type 'q' to quit):")
+    local resp = read()
+    if resp and type(resp) == "string" and resp:lower() == "q" then
+        return
+    end
 end
