@@ -69,3 +69,14 @@ while turtle.getFuelLevel() < 500 do
     end
     turtle.refuel()
 end
+
+--Request inventory
+while type(peripheral.wrap("back")) ~= "table" do
+    print("No inventory detected.")
+    print("Place an inventory behind the turtle, then press Enter.")
+    print("Or type 'd' and Enter to dump items on the ground.")
+    local resp = read()
+    if resp == "d" then
+        break
+    end
+end
