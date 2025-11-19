@@ -74,8 +74,12 @@ do
         print("Diggy hole!")
         sleep(1)
     else
-        print("Quarry canceled")
-        os.exit()
+        print("Quarry canceled!")
+        sleep(1)
+        print("rebooting...")
+        sleep(2)
+---@diagnostic disable-next-line: undefined-field
+        os.reboot()
     end
 end
 
@@ -132,7 +136,7 @@ end
 
 --Send turtle to dig in a straight line (for use with diameter)
 local function digMove(quantity)
-    for _ = 1, quantity do
+    for _ = 1, quantity or 1 do
         if turtle.detect() then
             turtle.dig()
         end
