@@ -84,4 +84,12 @@ function trackPos.moveDown(quantity)
   end
 end
 
+function trackPos.getLocation()
+  local x = trackPos.position.x
+  local y = trackPos.position.y
+  local z = trackPos.position.z
+  local d = trackPos.position.d
+  print("x="..x.." y="..y.." z="..z.." d="..d)
+end
+
 return trackPos
