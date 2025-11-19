@@ -137,5 +137,25 @@ local function digMove(quantity)
             turtle.dig()
         end
         trackPos.moveForward()
+        checkInventory()
     end
+end
+
+
+local function digLevel()
+    for line = 1, diameter - 1 do
+        digMove(diameter - 1)
+        if line % 2 == 1 then
+            trackPos.turnRight(1)
+            digMove()
+            trackPos.turnRight(1)
+        else
+            trackPos.turnLeft(1)
+            digMove()
+            trackPos.turnLeft(1)
+        end
+    end
+    digMove(diameter - 1)
+    trackPos.turnRight((diameter % 2) + 1) --if odd amount of lines reverse, if even turn once
+    refuel()
 end
