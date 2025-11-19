@@ -86,6 +86,8 @@ end
 -- ================================================================
 -- Core Quarry Logic
 -- ================================================================
+local blockCount = 0
+local currentDepth = 0
 
 -- Detect if the block directly below is bedrock
 local function isBedrockDown()
@@ -172,7 +174,7 @@ local function descend()
     checkInventory()
 end
 
-do
+local function quarry()
     if startPos == "bottomRight" then
         trackPos.turnLeft()
     end
@@ -182,3 +184,21 @@ do
         digLevel()
     end
 end
+
+local function updateScreen()
+    if depth == -1 then
+        local targetDepth = "bedrock"
+    end
+    while true do
+        term.clear()
+        term.setCursorPos(1,1)
+        print("Turtle Stats:")
+        print("-------------")
+        print("Blocks mined:", blockCount)
+        print("Fuel level:", turtle.getFuelLevel())
+        print("Depth:", currentDepth,"/", targetDepth)
+        sleep(1)
+    end
+end
+
+parallel.waitForAny(quarry, updateScreen)
