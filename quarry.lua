@@ -198,8 +198,9 @@ local function quarry()
 end
 
 local function updateScreen()
-    if depth == -1 then
-        local targetDepth = "bedrock"
+    if depth > 0 then
+        local targetDepth = depth
+    else local targetDepth = "bedrock"
     end
     while true do
         term.clear()
