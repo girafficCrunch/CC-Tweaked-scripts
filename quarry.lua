@@ -108,8 +108,10 @@ local function pitstop()
     }
     trackPos.home()
     for _ = 1, 16 do
-        turtle.select(_)
-        turtle.drop()
+        if turtle.getItemCount(_) > 0 then
+            turtle.select(_)
+            turtle.drop()
+        end
     end
     turtle.select(1)
     while turtle.getFuelLevel() < 500 do
@@ -124,10 +126,12 @@ end
 local function refuel()
     if turtle.getFuelLevel() < 1000 then
         for _ = 1, 16 do
-            turtle.select(_)
-            turtle.refuel()
-            if turtle.getFuelLevel() > 5000 then
-                break
+            if turtle.getItemCount(_) > 0 then
+                turtle.select(_)
+                turtle.refuel()
+                if turtle.getFuelLevel() > 5000 then
+                    break
+                end
             end
         end
         turtle.select(1)
