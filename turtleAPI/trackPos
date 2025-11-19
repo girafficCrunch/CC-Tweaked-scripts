@@ -92,4 +92,24 @@ function trackPos.getLocation()
   print("x="..x.." y="..y.." z="..z.." d="..d)
 end
 
+function trackPos.orient(target)
+  -- normalize inputs to [0,3]
+  local current = trackPos.position.d % 4
+  local desired = (tonumber(target) or 0) % 4
+
+  local delta = (desired - current) % 4
+  if delta == 0 then
+    return true
+  elseif delta == 1 then
+    trackPos.turnRight(1)
+    return true
+  elseif delta == 2 then
+    trackPos.turnRight(2)
+    return true
+  else -- delta == 3
+    trackPos.turnLeft(1)
+    return true
+  end
+end
+
 return trackPos
