@@ -143,4 +143,41 @@ function trackPos.home()
   end
 end
 
+function trackPos.moveTo(target)
+  target = target or {}
+  local tx = target.x or 0
+  local ty = target.y or 0
+  local tz = target.z or 0
+  local td = target.d
+
+  local yDiff = trackPos.position.y - ty
+  if yDiff > 0 then
+    trackPos.moveDown(yDiff)
+  elseif yDiff < 0 then
+    trackPos.moveUp(math.abs(yDiff))
+  end
+
+  local xDiff = trackPos.position.x - tx
+  if xDiff > 0 then
+    trackPos.orient(3)
+    trackPos.moveForward(xDiff)
+  elseif xDiff < 0 then
+    trackPos.orient(1)
+    trackPos.moveForward(math.abs(xDiff))
+  end
+
+  local zDiff = trackPos.position.z - tz
+  if zDiff > 0 then
+    trackPos.orient(2)
+    trackPos.moveForward(zDiff)
+  elseif zDiff < 0 then
+    trackPos.orient(0)
+    trackPos.moveForward(math.abs(zDiff))
+  end
+
+  if td ~= nil then
+    trackPos.orient(td)
+  end
+end
+
 return trackPos
