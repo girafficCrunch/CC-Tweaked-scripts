@@ -139,7 +139,7 @@ function trackPos.home()
       trackPos.orient(0)
       trackPos.moveForward(math.abs(z))
     end
-    trackPos.orient()
+    trackPos.orient(2)
   end
 end
 
