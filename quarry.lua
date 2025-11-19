@@ -82,6 +82,17 @@ end
 -- ================================================================
 -- Core Quarry Logic
 -- ================================================================
+--Send turtle home to deposit items
+local function pitstop()
+    local checkpoint = trackPos.position
+    trackPos.home()
+    for _ = 1, 16 do
+        turtle.select(_)
+        turtle.drop()
+    end
+    trackPos.moveTo(checkpoint)
+end
+
 local function digMove(quantity)
     for _ = 1, quantity do
         if turtle.detect() then
