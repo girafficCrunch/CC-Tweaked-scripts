@@ -20,8 +20,10 @@ h.close()
 for i, file in ipairs(files) do
     local fullURL = baseURL .. file
     local outputName = file:match("([^/]+)$") -- just filename, not folders
-    print("Downloading "..file.."...")
-    shell.run("wget", "-f", fullURL, outputName)
+    if fs.exists(outputName) then
+        fs.delete(outputName)
+    end
+    shell.run("wget", fullURL, outputName)
 end
 
 print("All files downloaded!")
