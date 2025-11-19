@@ -105,8 +105,8 @@ local function pitstop()
         turtle.select(_)
         turtle.drop()
     end
+    turtle.select(1)
     while turtle.getFuelLevel() < 500 do
-        turtle.select(1)
         print("Need fuel!")
         print("press Enter to continue...")
         read()
@@ -124,6 +124,7 @@ local function refuel()
                 break
             end
         end
+        turtle.select(1)
         if turtle.getFuelLevel() < 500 then
             pitstop()
         end
