@@ -81,7 +81,6 @@ end
 -- ================================================================
 -- Core Quarry Logic
 -- ================================================================
-
 local function digMove(quantity)
     for _ = 1, quantity do
         if turtle.detect() then
@@ -96,5 +95,7 @@ end
 -- Detect if the block directly below is bedrock
 local function isBedrockDown()
     local ok, data = turtle.inspectDown()
-    return ok and data and data.name == "minecraft:bedrock"
+    if data.name == "minecraft:bedrock" then
+        depth = math.abs(trackPos.position.y)
+    end
 end
