@@ -150,13 +150,6 @@ function trackPos.moveTo(target)
   local td = target.d
 
   while trackPos.position.x ~= tx or trackPos.position.y ~= ty or trackPos.position.z ~= tz do
-    local yDiff = trackPos.position.y - ty
-    if yDiff > 0 then
-      trackPos.moveDown(yDiff)
-    elseif yDiff < 0 then
-      trackPos.moveUp(math.abs(yDiff))
-    end
-
     local xDiff = trackPos.position.x - tx
     if xDiff > 0 then
       trackPos.orient(3)
@@ -173,6 +166,13 @@ function trackPos.moveTo(target)
     elseif zDiff < 0 then
       trackPos.orient(0)
       trackPos.moveForward(math.abs(zDiff))
+    end
+    
+    local yDiff = trackPos.position.y - ty
+    if yDiff > 0 then
+      trackPos.moveDown(yDiff)
+    elseif yDiff < 0 then
+      trackPos.moveUp(math.abs(yDiff))
     end
   end
   if td ~= nil then
