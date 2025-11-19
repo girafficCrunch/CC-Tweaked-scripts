@@ -62,6 +62,7 @@ while type(peripheral.wrap("back")) ~= "table" do
     end
 end
 
+--Ask for confirmation before continuing else cancel
 do
     print("Quarry size: "..diameter.."x"..diameter)
     print("StartingPos: "..startPos)
@@ -86,9 +87,7 @@ local function digMove(quantity)
         if turtle.detect() then
             turtle.dig()
         end
-        if trackPos.moveForward() == false then
-            print("Stuck at")
-        end
+        trackPos.moveForward()
     end
 end
 
