@@ -45,6 +45,8 @@ function trackPos.moveForward(quantity)
       elseif trackPos.position.d == 3 then
         trackPos.position.x = trackPos.position.x - 1
       end
+    else
+      return false
     end
   end
 end
