@@ -59,10 +59,13 @@ if startPos ~= "bottomLeft" and startPos ~= "bottomRight" then
     return
 end
 
+--Request fuel
 while turtle.getFuelLevel() < 500 do
+    print("Current fuel: " .. turtle.getFuelLevel() .. "/500")
     print("Add fuel, then press Enter to continue (or type 'q' to quit):")
     local resp = read()
     if resp and type(resp) == "string" and resp:lower() == "q" then
         return
     end
+    turtle.refuel()
 end
