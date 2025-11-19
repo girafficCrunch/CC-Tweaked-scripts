@@ -156,6 +156,25 @@ local function digLevel()
         end
     end
     digMove(diameter - 1)
-    trackPos.turnRight((diameter % 2) + 1) --if odd amount of lines reverse, if even turn once
+    trackPos.turnRight((diameter % 2) + 1) --if even columns turn once, if odd turn twice
     refuel()
+end
+
+local function descend()
+    if turtle.detectDown() then
+        turtle.digDown()
+    end
+    trackPos.moveDown()
+    checkInventory()
+end
+
+do
+    if startPos == "bottomRight" then
+        trackPos.turnLeft()
+    end
+    digLevel()
+    while depth ~= trackPos.position.y do
+        descend()
+        digLevel()
+    end
 end
