@@ -155,7 +155,9 @@ end
 local function digMove(quantity)
     for _ = 1, quantity or 1 do
         if turtle.detect() then
-            turtle.dig()
+            if turtle.dig() then
+                blockCount = blockCount + 1
+            end
         end
         trackPos.moveForward()
         checkInventory()
@@ -183,9 +185,12 @@ end
 
 local function descend()
     if turtle.detectDown() then
-        turtle.digDown()
+        if turtle.digDown() then
+            blockCount = blockCount + 1
+        end
     end
     trackPos.moveDown()
+    currentDepth = currentDepth + 1
     checkInventory()
 end
 
