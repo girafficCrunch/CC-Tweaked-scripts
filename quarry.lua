@@ -177,7 +177,7 @@ do
         trackPos.turnLeft()
     end
     digLevel()
-    while depth ~= trackPos.position.y do
+    while depth ~= math.abs(trackPos.position.y) do
         descend()
         digLevel()
     end
