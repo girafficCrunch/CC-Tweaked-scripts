@@ -112,4 +112,33 @@ function trackPos.orient(target)
   end
 end
 
+function trackPos.home()
+  while trackPos.position.x ~= 0 or trackPos.position.y ~= 0 or trackPos.position.z ~= 0 do
+    local x = trackPos.position.x
+    local y = trackPos.position.y
+    local z = trackPos.position.z
+    local d = trackPos.position.d
+    if y > 0 then
+      trackPos.moveDown(y)
+    elseif y < 0 then
+      trackPos.moveUp(math.abs(y))
+    end
+    if x > 0 then
+      trackPos.orient(3)
+      trackPos.moveForward(x)
+    elseif x < 0 then
+      trackPos.orient(1)
+      trackPos.moveForward(math.abs(x))
+    end
+    if z > 0 then
+      trackPos.orient(2)
+      trackPos.moveForward(z)
+    elseif z < 0 then
+      trackPos.orient(0)
+      trackPos.moveForward(math.abs(z))
+    end
+    trackPos.orient()
+  end
+end
+
 return trackPos
