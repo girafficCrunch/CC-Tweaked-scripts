@@ -89,6 +89,10 @@ end
 -- ================================================================
 local blockCount = 0
 local currentDepth = 0
+local targetDepth = "bedrock"
+if depth > 0 then
+    targetDepth = tostring(depth)
+end
 
 -- Detect if the block directly below is bedrock
 local function isBedrockDown()
@@ -198,10 +202,6 @@ local function quarry()
 end
 
 local function updateScreen()
-    if depth > 0 then
-        local targetDepth = depth
-    else local targetDepth = "bedrock"
-    end
     while true do
         term.clear()
         term.setCursorPos(1,1)
