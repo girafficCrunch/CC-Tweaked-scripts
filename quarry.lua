@@ -1,29 +1,10 @@
 -- This program is designed to run in CraftOS via the current release of CC: Tweaked
-
-local trackPos = require("trackPos")
 ---@diagnostic disable: undefined-global
---[[
-Quarry -diameter - depth -startingPosition
-    diameter default = 5
-    depth default = hit bedrock
-    startingPosition default = bottomLeft
+local trackPos = require("trackPos")
 
-Checks
-    has fuel?
-    has deposit location?
-
-Ask for confirmation
-    "Quarry will be 5x5, starting from bottom left"
-    "depth will be..."
-    "resources will be dumped in the the open"
-    "Confirm Y/N"
-
-Functions
-    quarry
-    digLevel - the pattern of going down a level
-
-]]
+-- ================================================================
 -- Program Arguments
+-- ================================================================
 local args = {...}
 
 for _, arg in ipairs(args) do
@@ -81,7 +62,6 @@ while type(peripheral.wrap("back")) ~= "table" do
     end
 end
 
---TODO: fix this block to ask the question again if y or n is not returned
 do
     print("Quarry size: "..diameter.."x"..diameter)
     print("StartingPos: "..startPos)
@@ -98,7 +78,9 @@ do
     end
 end
 
---TODO: Add comment block here to seperate the code below from the initial code above
+-- ================================================================
+-- Core Quarry Logic
+-- ================================================================
 
 local function digMove(quantity)
     for _ = 1, quantity do
