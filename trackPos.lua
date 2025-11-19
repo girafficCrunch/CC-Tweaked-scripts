@@ -144,10 +144,9 @@ function trackPos.home()
 end
 
 function trackPos.moveTo(target)
-  target = target or {}
-  local tx = target.x or 0
-  local ty = target.y or 0
-  local tz = target.z or 0
+  local tx = target.x
+  local ty = target.y
+  local tz = target.z
   local td = target.d
 
   while trackPos.position.x ~= tx or trackPos.position.y ~= ty or trackPos.position.z ~= tz do

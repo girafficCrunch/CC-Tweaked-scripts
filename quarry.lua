@@ -42,6 +42,7 @@ end
 
 --Request fuel
 while turtle.getFuelLevel() < 500 do
+    turtle.select(1)
     print("Current fuel: " .. turtle.getFuelLevel() .. "/500")
     print("Add fuel, then press Enter to continue (or type 'q' to quit):")
     local resp = read()
@@ -99,7 +100,12 @@ end
 
 --Send turtle home to deposit items
 local function pitstop()
-    local checkpoint = trackPos.position
+    local checkpoint = {
+        x = trackPos.position.x,
+        y = trackPos.position.y,
+        z = trackPos.position.z,
+        d = trackPos.position.d,
+    }
     trackPos.home()
     for _ = 1, 16 do
         turtle.select(_)
@@ -176,6 +182,7 @@ local function descend()
 end
 
 local function quarry()
+    turtle.select(1)
     if startPos == "bottomRight" then
         trackPos.turnLeft()
     end
