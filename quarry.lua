@@ -83,17 +83,14 @@ end
 -- Core Quarry Logic
 -- ================================================================
 
-local function refuel()
-    if turtle.getFuelLevel() < 500 then
-        for _ = 1, 16 do
-            turtle.select(_)
-            turtle.refuel()
-            if turtle.getFuelLevel() > 5000 then
-                break
-            end
-        end
+-- Detect if the block directly below is bedrock
+local function isBedrockDown()
+    local ok, data = turtle.inspectDown()
+    if data.name == "minecraft:bedrock" then
+        depth = math.abs(trackPos.position.y)
     end
 end
+
 --Send turtle home to deposit items
 local function pitstop()
     local checkpoint = trackPos.position
@@ -102,22 +99,43 @@ local function pitstop()
         turtle.select(_)
         turtle.drop()
     end
+    while turtle.getFuelLevel < 500 do
+        turtle.select(1)
+        print("Need fuel!")
+        print("press Enter to continue...")
+        read()
+        turtle.refuel()
+    end
     trackPos.moveTo(checkpoint)
 end
 
+local function refuel()
+    if turtle.getFuelLevel() < 1000 then
+        for _ = 1, 16 do
+            turtle.select(_)
+            turtle.refuel()
+            if turtle.getFuelLevel() > 5000 then
+                break
+            end
+        end
+        if turtle.getFuelLevel() < 500 then
+            pitstop()
+        end
+    end
+end
+
+local function checkInventory()
+    if turtle.getItemCount(16) > 0 then
+        pitstop()
+    end
+end
+
+--Send turtle to dig in a straight line (for use with diameter)
 local function digMove(quantity)
     for _ = 1, quantity do
         if turtle.detect() then
             turtle.dig()
         end
         trackPos.moveForward()
-    end
-end
-
--- Detect if the block directly below is bedrock
-local function isBedrockDown()
-    local ok, data = turtle.inspectDown()
-    if data.name == "minecraft:bedrock" then
-        depth = math.abs(trackPos.position.y)
     end
 end
