@@ -82,6 +82,18 @@ end
 -- ================================================================
 -- Core Quarry Logic
 -- ================================================================
+
+local function refuel()
+    if turtle.getFuelLevel() < 500 then
+        for _ = 1, 16 do
+            turtle.select(_)
+            turtle.refuel()
+            if turtle.getFuelLevel() > 5000 then
+                break
+            end
+        end
+    end
+end
 --Send turtle home to deposit items
 local function pitstop()
     local checkpoint = trackPos.position
