@@ -23,7 +23,7 @@ Functions
     digLevel - the pattern of going down a level
 
 ]]
-
+-- Program Arguments
 local args = {...}
 
 for _, arg in ipairs(args) do
@@ -78,5 +78,35 @@ while type(peripheral.wrap("back")) ~= "table" do
     local resp = read()
     if resp == "d" then
         break
+    end
+end
+
+--TODO: fix this block to ask the question again if y or n is not returned
+do
+    print("Quarry size: "..diameter.."x"..diameter)
+    print("StartingPos: "..startPos)
+    print("Target depth: "..depth)
+    print("")
+    print("Proceed? Enter 'y' to continue...")
+    local resp = read()
+    if resp == "y" then
+        print("Diggy hole!")
+        sleep(1)
+    else
+        print("Quarry canceled")
+        os.exit()
+    end
+end
+
+--TODO: Add comment block here to seperate the code below from the initial code above
+
+local function digMove(quantity)
+    for _ = 1, quantity do
+        if turtle.detect() then
+            turtle.dig()
+        end
+        if trackPos.moveForward() == false then
+            print("Stuck at")
+        end
     end
 end
