@@ -92,3 +92,9 @@ local function digMove(quantity)
         end
     end
 end
+
+-- Detect if the block directly below is bedrock
+local function isBedrockDown()
+    local ok, data = turtle.inspectDown()
+    return ok and data and data.name == "minecraft:bedrock"
+end
